@@ -146,14 +146,17 @@ button:hover {
 }
 
 /* Estilos para la ventana modal */
+/* Estilos para la ventana modal */
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
+    display: none; /* Oculta la modal por defecto */
+    position: fixed; /* Fija la posición en la pantalla */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
     left: 0;
     top: 0;
+    width: 100%; /* Asegura que ocupe todo el ancho de la pantalla */
+    height: 100%; /* Asegura que ocupe todo el alto de la pantalla */
     overflow-y: auto; /* Permite desplazamiento vertical si es necesario */
-    background-color: rgba(0, 0, 0, 0.7); 
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro y semi-transparente */
 }
 
 .modal-content {  
@@ -162,10 +165,58 @@ button:hover {
     padding: 20px;  
     border-radius: 10px; /* Bordes redondeados */  
     max-width: 90%; /* Cambia el ancho a tu preferencia */  
+    width: 600px; /* Ancho fijo para evitar que sea demasiado grande */
+    position: relative;
+    top: 50%; /* Mueve hacia abajo desde la parte superior */
+    transform: translateY(-50%); /* Ajusta para centrar verticalmente */
 }
 
+/* Ajustes para las imágenes dentro de la modal */
 .modal-content img {
-    width: auto; /* Ajusta automáticamente el ancho de la imagen horizontalmente */
-    max-width: 100%; /* Asegura que no exceda el ancho del contenedor modal */
-    height: auto;
+    width: 100%; /* Asegura que la imagen ocupe el 100% del ancho del contenedor modal */
+    height: auto; /* Mantiene la proporción de la imagen */
+    display: block;
+}
+
+
+/* Estilos para cerrar la modal */
+.close-modal {
+    position: absolute; /* Posiciona el botón en la esquina superior derecha */
+    top: 10px;
+    right: 15px;
+    color: #333; /* Color del texto del botón de cerrar */
+    font-size: 30px; /* Tamaño del texto del botón de cerrar */
+    font-weight: bold; /* Negrita para destacar el botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+/* Efecto hover para el botón de cerrar */
+.close-modal:hover {
+    color: #ff0000; /* Cambia a rojo al pasar el mouse sobre el botón de cerrar */
+}
+
+.pagination {
+    display: flex; /* Usar flexbox para alinear los botones */
+    justify-content: center; /* Centra los botones horizontalmente */
+    margin-top: 20px; /* Espacio superior para separar de la cuadrícula */
+}
+
+.pagination button {
+    background-color: #007BFF; /* Color azul para el botón */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno */
+    margin: 0 10px; /* Espacio entre los botones */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    transition: background-color 0.3s ease; /* Transición suave al cambiar el color de fondo */
+}
+
+.pagination button:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar el mouse sobre el botón */
+}
+
+.pagination button:disabled {
+    background-color: #ccc; /* Color gris para el botón deshabilitado */
+    cursor: not-allowed; /* Cambia el cursor a no permitido */
 }

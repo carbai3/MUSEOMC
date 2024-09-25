@@ -152,7 +152,67 @@ app.get('/object/:id/additional-images', async (req, res) => {
         console.error('Error al recuperar imágenes adicionales:', error);  
         res.status(500).send('Error al recuperar las imágenes adicionales.');  
     }  
-});       
+});
+// paginacion --------------------
+
+async function getAllObjectsFromAPI() {
+    try {
+        const response = await axios.get('https://collectionapi.metmuseum.org/public/collection/v1/objects'); // Cambia la URL según sea necesario
+        return response.data.objectIDs; // Suponiendo que estás obteniendo un array de IDs de objetos
+    } catch (error) {
+        console.error("Error al obtener todos los objetos:", error.message);
+        throw error; // Lanza el error para manejarlo más arriba
+    }
+}
+
+app.get('/results', async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const itemsPerPage = 10;
+
+    try {
+        // Obtén los objetos de tu API o base de datos.
+        const allObjects = await getAllObjectsFromAPI();
+
+        const startIndex = (page - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        // Obtener solo los objetos para la página actual
+        const objectIDs = allObjects.slice(startIndex, endIndex);
+
+        const validObjects = await Promise.all(
+            objectIDs.map(async (id) => {
+                try {
+                    const response = await axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`);
+                    return response.data;  // Si el objeto existe, devolverlo
+                } catch (error) {
+                    if (error.response && error.response.status === 404) {
+                        console.error(`Error al recuperar el objeto con ID ${id}: No encontrado (404)`);
+                        return null;  // Si no se encuentra el objeto, devuelvo `null`
+                    } else {
+                        throw error;  // Si es otro error, lanzar el error
+                    }
+                }
+            })
+        );
+
+        // Filtrar los objetos válidos que no sean `null`
+        const objectsToDisplay = validObjects.filter(obj => obj !== null);
+
+        const totalObjects = allObjects.length;
+        const totalPages = Math.ceil(totalObjects / itemsPerPage);
+
+        res.render('results', {
+            objects: objectsToDisplay,
+            currentPage: page,
+            totalPages: totalPages
+        });
+    } catch (error) {
+        console.error("Error al obtener resultados:", error.message, error.stack);
+        res.status(500).send("Error al obtener resultados");
+    }
+});
+
+
 
 app.listen(PORT, () => {  
     console.log(`Servidor corriendo en el puerto ${PORT}`);  

@@ -18,12 +18,19 @@ html(lang="en")
           p Dinastía: #{object.dynasty || 'Desconocida'}
           if object.objectID
           a.ver-mas(href="#", data-object-id=object.objectID) Ver más
+
+
           
     #modal-imagen.modal(style="display: none;")
      .modal-content
        span.close-modal &times;
-       img#modal-image(src="")
-       .contenedor-imagenes-adicionales  
+       img#modal-image(src="") 
+       .contenedor-imagenes-adicionales
+       
+    
+    .pagination
+      button#prev-page(type="button", disabled=currentPage === 1) Anterior
+      button#next-page(type="button", disabled=currentPage === totalPages) Siguiente
 
 
-    script(src='funciones.js')  
+    script(src='funciones.js')
