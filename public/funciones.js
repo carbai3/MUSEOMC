@@ -35,12 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const objectIDsToLoad = allObjectIDs.slice(startIndex, endIndex);
 
         // Limpiar el contenido de la cuadrícula
-        if (grid) {
-            grid.innerHTML = ''; // Limpiar los objetos actuales
-        } else {
-            console.error("Elemento .grid no encontrado en el DOM.");
-            return;
-        }
+        grid.innerHTML = ''; 
 
         try {
             // Cargar cada objeto individualmente por ID
@@ -75,10 +70,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 `;
                 grid.appendChild(card);
             });
-
-            // Actualizar el estado de los botones de paginación
-            document.getElementById('prev-page').disabled = currentPage === 1;
-            document.getElementById('next-page').disabled = currentPage === totalPages;
+            // Actualizar el estado de los botones de paginación  
+                document.getElementById('prev-page').disabled = currentPage === 1;  
+                document.getElementById('next-page').disabled = currentPage === totalPages; 
+ 
         } catch (error) {
             console.error('Error al cargar la página:', error);
         }
@@ -94,13 +89,15 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
         totalPages = Math.ceil(allObjectIDs.length / itemsPerPage); // Calcular el total de páginas
-
         if (totalPages === 0) {
             console.error("No hay páginas para mostrar.");
             return;
         }
 
         loadPage(currentPage); // Cargar la primera página
+    // Actualizar el estado de los botones de paginación
+        document.getElementById('prev-page').disabled = currentPage === 1;
+        document.getElementById('next-page').disabled = currentPage === totalPages;
     };
 
 

@@ -19,7 +19,7 @@ app.get("/", async (req, res) => {
     try {  
         const response = await axios.get('https://collectionapi.metmuseum.org/public/collection/v1/departments');  
         const departments = response.data.departments;  
-        res.render('index', { departments });  
+        res.render('index', {departments});  
     } catch (error) {  
         console.error('Error al cargar departamentos:', error.response ? error.response.data : error.message);  
         res.status(500).send('Error al cargar departamentos.');  

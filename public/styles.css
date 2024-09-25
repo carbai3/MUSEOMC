@@ -11,7 +11,7 @@ body {
 }
 
 h1 { 
-    font-size: 3em; 
+    font-size: 3.2em; 
     font-weight: bold;
     text-align: center;
     margin-top: 50px; /* Espacio superior */  
@@ -52,11 +52,13 @@ form {
 } 
 
 label {  
+    font-size: 1.5ex;
     font-weight: bold; /* Hacer las etiquetas más destacadas */  
     margin-bottom: 5px; /* Espacio entre la etiqueta y el campo */
 }  
 
 input, select {  
+    font-size: 1ex;
     padding: 10px;  
     border: 1px solid #ccc;  
     border-radius: 5px;  
