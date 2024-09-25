@@ -146,7 +146,6 @@ button:hover {
 }
 
 /* Estilos para la ventana modal */
-/* Estilos para la ventana modal */
 .modal {
     display: none; /* Oculta la modal por defecto */
     position: fixed; /* Fija la posición en la pantalla */
@@ -212,7 +211,7 @@ button:hover {
     border: none; /* Sin borde */
     border-radius: 5px; /* Bordes redondeados */
     padding: 10px 20px; /* Espaciado interno */
-    margin: 0 10px; /* Espacio entre los botones */
+    margin: 20px 10px; /* Espacio entre los botones */
     cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
     transition: background-color 0.3s ease; /* Transición suave al cambiar el color de fondo */
 }

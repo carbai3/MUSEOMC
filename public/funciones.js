@@ -104,10 +104,22 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
 
-    document.getElementById('prev-page').addEventListener('click', () => {
+    // Manejar clics en los botones de paginación
+    const nextPageButton = document.getElementById('next-page');
+    const prevPageButton = document.getElementById('prev-page');
+
+    nextPageButton.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            console.log("Avanzando a la siguiente página:", currentPage);
+            loadPage(currentPage);
+        }
+    });
+
+    prevPageButton.addEventListener('click', () => {
         if (currentPage > 1) {
             currentPage--;
-            console.log("Volviendo a la página anterior:", currentPage); // Verificar si el número de página cambia
+            console.log("Volviendo a la página anterior:", currentPage);
             loadPage(currentPage);
         }
     });
