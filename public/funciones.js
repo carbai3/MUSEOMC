@@ -3,26 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeModal = document.querySelector('.close-modal');
     const imageContainer = document.querySelector('.contenedor-imagenes-adicionales');
     
-  // Función para abrir la modal
-  function openModal(imageSrc) {
-    const modalImage = document.getElementById('modal-image');
-    modalImage.src = imageSrc; // Cambia aquí según cómo obtienes las imágenes
-    modal.style.display = 'block'; // Muestra la modal
-    modal.style.opacity = '1'; // Asegúrate de que la opacidad esté en 1 al abrir
-}
-// cerra el modal
-    closeModal.addEventListener('click', function() {
-        modal.style.opacity = '0';
-        setTimeout(() => modal.style.display = 'none', 300); // Asegúrate de que el tiempo coincide con la duración de la transición
-    });
 
-    // Cerrar modal al hacer clic fuera del contenido
-    modal.addEventListener('click', function(event) {
-        if (event.target === modal) { // Verifica si el clic fue en el fondo
-            closeModal.click(); // Llama a la función para cerrar el modal
-        }
-    });
-});
+
 
     document.addEventListener('DOMContentLoaded', function() {
         let currentPage = 1;
@@ -97,10 +79,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cambia la imagen cada 5 segundos
     setInterval(changeBackgroundImage, 5000);
 
+ // Función para abrir el modal y mostrar las imágenes adicionales
     document.querySelectorAll('.ver-mas').forEach(button => {
         button.addEventListener('click', async function(event) {
             event.preventDefault(); 
-            const objectId = this.getAttribute('data-object-id');
+            const objectId = this.getAttribute('data-object-id');// Obtengo el ID del objeto
             
             try {
                 const response = await fetch(`/object/${objectId}/additional-images`);
@@ -109,21 +92,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 imageContainer.innerHTML = '';  
 
 
-                additionalImages.forEach(imageUrl => {
-                    const imgElement = document.createElement('img');
-                    imgElement.src = imageUrl;
-                    imgElement.alt = "Imagen adicional";
+                if (additionalImages.length === 0) {
+                    const noImageMessage = document.createElement('p');
+                    noImageMessage.textContent = "No hay imágenes adicionales disponibles.";
+                    imageContainer.appendChild(noImageMessage);
+                } else {
+                    // Agregar las nuevas imágenes al contenedor
+                    additionalImages.forEach(imageUrl => {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = imageUrl;
+                        imgElement.alt = "Imagen adicional";
+                        imgElement.onerror = () => {
+                            imgElement.style.display = 'none'; // Si no se carga la imagen, la ocultamos
+                        };
+                        imageContainer.appendChild(imgElement);
+                    });
+                }
 
-                    imgElement.onerror = () => {
-                        imgElement.style.display = 'none';  
-                    };
-                    imageContainer.appendChild(imgElement);
-                });
-
-                modal.style.display = 'block'; 
+                // Mostrar el modal
+                modal.style.display = 'block';
             } catch (error) {
                 console.error('Error al cargar las imágenes adicionales:', error);
             }
         });
     });
+
+  
+    // Cerrar el modal al hacer clic en el botón "Cerrar"
+    closeModal.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+
+    // Cerrar el modal si se hace clic fuera del contenido
+    modal.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
 

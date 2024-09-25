@@ -144,7 +144,7 @@ app.get('/object/:id/additional-images', async (req, res) => {
         const object = response.data;  
 
         if (object.additionalImages && object.additionalImages.length > 0) {  
-            res.json(object.additionalImages);  
+            res.json(object.additionalImages);  // Devolver las imágenes adicionales
         } else {  
             res.json([]);  // Si no hay imágenes adicionales, devolver un array vacío  
         }  
