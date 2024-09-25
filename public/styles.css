@@ -157,6 +157,9 @@ button:hover {
     height: 100%; /* Asegura que ocupe todo el alto de la pantalla */
     overflow-y: auto; /* Permite desplazamiento vertical si es necesario */
     background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro y semi-transparente */
+    display: flex; /* Usamos flexbox para centrar verticalmente */  
+    align-items: center; /* Centra verticalmente el contenido */  
+    justify-content: center; /* Centra horizontalmente */
 }
 
 .modal-content {  
@@ -165,10 +168,12 @@ button:hover {
     padding: 20px;  
     border-radius: 10px; /* Bordes redondeados */  
     max-width: 90%; /* Cambia el ancho a tu preferencia */  
-    width: 600px; /* Ancho fijo para evitar que sea demasiado grande */
+    width: 500px; /* Ancho fijo para evitar que sea demasiado grande */
     position: relative;
-    top: 50%; /* Mueve hacia abajo desde la parte superior */
-    transform: translateY(-50%); /* Ajusta para centrar verticalmente */
+    top: 40%; /* Mueve hacia abajo desde la parte superior */
+    transform: translateY(-35%); /* Ajusta para centrar verticalmente */
+    max-height: 80%; /* Limita la altura máxima del modal */  
+    overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es grande */  
 }
 
 /* Ajustes para las imágenes dentro de la modal */
